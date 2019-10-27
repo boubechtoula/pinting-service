@@ -1,0 +1,32 @@
+<ui:composition template="#{layoutMB.template}"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:of="http://omnifaces.org/functions">
+
+
+    <ui:define name="body">
+        <div class="row">
+            <div class="ui-g-12">
+                <div class="error-page">
+                    <h2 class="headline text-red">500</h2>
+
+                    <div class="error-content" style="font-size: 1.1em">
+                        <h3>
+                            <i class="fa fa-warning text-red"></i>  Oops! Quelque chose a mal tourné.
+                        </h3>
+
+                        <p>
+                            Aller à <p:link style="text-decoration: underline" outcome="/index.xhtml" value="Home"
+                                            escape="false"/> Précédent <a href="#" onclick="window.history.back();" class="ui-link" style="text-decoration: underline">#{adm['label.previous-page']}</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    </ui:define>
+
+</ui:composition>

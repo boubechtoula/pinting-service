@@ -1,0 +1,89 @@
+li.header {
+    text-transform: uppercase;
+}
+
+.sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px;
+}
+.sidebar-form, .sidebar-menu>li.header {
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+#userImage {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+ul.dropdown-menu > li.user-header {
+    height: auto!important;
+}
+
+a.dropdown-toggle {
+    background-color: #3c8dbc!important;
+}
+
+a#logout {
+    color: #3c8dbc!important;
+    background: transparent;
+}
+
+@media (max-width: 768px) {
+    body .control-sidebar {
+        padding-top:100px;
+    }
+}
+#text-align-id .ui-datatable .ui-datatable-header {
+    text-align: right !important;
+}
+#layout-menu_menu {
+    z-index: 9997 !important;
+}
+
+#layout-menu_menu span.ui-menuitem-text {
+    margin-left: 2px;
+}
+/* below css hides growls in small screens and makes messages visible */
+@media ( max-width: 768px) {
+    body div.ui-growl {
+        display: none;
+    }
+
+    body div.ui-messages {
+        display: block;
+    }
+}
+
+/* below css hides messages in medium/big devices and makes growl visible in such devices */
+@media ( min-width: 769px) {
+    #login-css body div.ui-growl {
+        display: block;
+    }
+
+    #login-css body div.ui-messages {
+        display: none;
+    }
+}
+
+#login-css body {
+    overflow-y: hidden;
+}
+
+#login-css body.login-page {
+    background-color: transparent;
+}
+
+#login-css html {
+    background-image: -webkit-linear-gradient(bottom, #6B77A1 0%, #737EA5 3%, #9599B3 15%,
+        #B1B0BF 28%, #C7C1C8 41%, #D6CDCF 57%, #DFD5D3 74%, #E2D7D4 100%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Jobs"/>
+    </ui:define>
+
+    <ui:define name="body" id="text-align-id">
+        <h:form id="listType">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:dataTable var="job" value="#{jobManager.getAllJobs()}" >
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{job.name}" />
+                        </p:column>
+                        <p:column headerText="Date debut">
+                            <h:outputText value="#{job.startDate}" />
+                        </p:column>
+                        <p:column headerText="Date fin">
+                            <h:outputText value="#{job.endDate}" />
+                        </p:column>
+                        <p:column headerText="Etat">
+                            <h:outputText value="#{job.status.name}" />
+                        </p:column>
+                        <p:column headerText="Rapport Pdf">
+                            <h:outputText value="#{job.namePdf}" />
+                        </p:column>
+                        <p:column>
+                            <p:menuButton value="" rendered="#{jobManager.hasFile(job)}">
+                                <p:menuitem value="Télécharger rapport" icon="fa fa-rotate-left" ajax="false" onclick="PF('bui').show()" oncomplete="PF('bui').hide()">
+                                    <p:fileDownload value="#{jobManager.downloadFile()}" />
+                                </p:menuitem>
+                                <p:menuitem value="Imprimer rapport" icon="fa fa-rotate-left" onclick="PF('bui').show()" oncomplete="PF('bui').hide()">
+                                </p:menuitem>
+                            </p:menuButton>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

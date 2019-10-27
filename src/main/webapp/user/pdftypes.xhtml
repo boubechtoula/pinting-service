@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Pdf Types"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. -->
+    </ui:define>
+
+    <ui:define name="body" id="text-align-id">
+        <h:form id="listType">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:commandButton  styleClass="btn-primary" actionListener="#{pdfTypeManager.reset()}"  value="Ajouter"  onclick="PF('dlg2').show();" />
+                    </div>
+                    <p:spacer width="10"/>
+                    <p:dataTable var="type" value="#{pdfTypeManager.getListPdfTypes()}" >
+
+                        <p:column headerText="Nom">
+                            <h:outputText value="#{type.name}" />
+                        </p:column>
+                        <p:column headerText="Imprémente">
+                            <h:outputText value="#{type.printName}" />
+                        </p:column>
+                        <p:column headerText="Fichier jrxml">
+                            <h:outputText value="#{type.jrxmlName}" />
+                        </p:column>
+
+                        <p:column headerText="Répertoire des ressouces">
+                            <h:outputText value="#{type.ressourcesFolderName}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+
+
+        <p:dialog closable="false" id="dlg2Id" header="Ajouter un Type de PDF" widgetVar="dlg2" modal="true" width="600" height="200">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true" />
+                <p:fragment rendered="#{pdfTypeManager.etape==0}">
+                    <p:panelGrid columns="2" layout="grid"   >
+                        <p:outputLabel  value="Nom PDF type :" />
+                        <p:inputText   value="#{pdfTypeManager.pdfType.name}"/>
+
+                        <p:outputLabel  value="Nom Imprimante :" />
+                        <p:inputText   value="#{pdfTypeManager.pdfType.printName}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Suivant" update="form" action="#{pdfTypeManager.createPdfType()}"
+                                     style="float:right; margin-top: 10%"/>
+                </p:fragment>
+
+                <p:outputPanel rendered="#{pdfTypeManager.etape==1}">
+                    <h3>Ajouter des fichiers jrxml</h3>
+                    <p:separator/>
+                    <p:fileUpload   fileUploadListener="#{pdfTypeManager.uploadJrxmlFiles}" mode="advanced" dragDropSupport="false"
+                                    multiple="false" update="messages" sizeLimit="900000" fileLimit="5" allowTypes="/(\.|\/)(jrxml)$/"
+                                    invalidSizeMessage="Invalid Size"
+                                    invalidFileMessage="Invalid File Type (.jrxml only)"
+                                    fileLimitMessage="Invalid File Limit"
+                                    required="true" requiredMessage="required filed"
+                                    />
+                </p:outputPanel>
+                <p:outputPanel id="rs" rendered="#{pdfTypeManager.etape ==2}">
+                    <h3>Ajouter des fichiers ressource</h3>
+                    <p:fileUpload  fileUploadListener="#{pdfTypeManager.uploadRessourceFiles}" mode="advanced" dragDropSupport="false"
+                                   multiple="true" update="messages" sizeLimit="900000" fileLimit="5"
+                                   invalidSizeMessage="Invalid Size"
+                                   fileLimitMessage="Invalid File Limit"
+                                   />
+                </p:outputPanel>
+                <p:separator/>
+                <p:commandButton value="Terminer" rendered="#{pdfTypeManager.etape==2}" update=":#{p:component('listType')} form" action="#{pdfTypeManager.reset()}"
+                                 style="float: right" onclick="PF('dlg2').hide();"/>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>
